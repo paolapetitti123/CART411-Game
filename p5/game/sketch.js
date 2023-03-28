@@ -1,8 +1,12 @@
 // Variable Declarations
 let canvas;
 let screen = 0;
+let startTextImg;
+let quitTextImg;
 
 function preload(){
+  startTextImg = loadImage('./pictures/start.png');
+  quitTextImg = loadImage('./pictures/quit.png');
 }
 
 function setup() {
@@ -35,22 +39,12 @@ function menuScreen(){
   pop();
   
   push();
-  textAlign(CENTER, CENTER);
-  textSize(width / 15);
-  fill(255,255,255);
-  textFont("VT323");
-  text('Start', width/2.7, 200);
+  image(startTextImg, width/3.2, 189, 50, 25)
   pop();
 
   push();
-  textAlign(CENTER, CENTER);
-  textSize(width / 15);
-  fill(255,255,255);
-  textFont("VT323");
-  text('Quit', width/1.6, 200);
+  image(quitTextImg, width/1.8, 189, 50, 25)
   pop();
-
-  
 }
 
 function gameScreen(){
@@ -59,4 +53,9 @@ function gameScreen(){
 
 function gameOverScreen(){
 
+}
+
+
+function changeScene(){
+  screen += 1;
 }
