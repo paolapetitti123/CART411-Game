@@ -3,6 +3,10 @@ let canvas;
 let screen = 0;
 let startTextImg;
 let quitTextImg;
+let startImg;
+let quitImg;
+let selection = 0;
+
 
 function preload(){
   startTextImg = loadImage('./pictures/start.png');
@@ -12,6 +16,8 @@ function preload(){
 function setup() {
   // put setup code here
   canvas = createCanvas(430, 300);
+  startImg = createImg('./pictures/start.png');
+  quitImg = createImg('./pictures/quit.png');
 }
 
 function draw() {
@@ -30,6 +36,7 @@ function draw() {
 }
 
 function menuScreen(){
+
   push();
   textAlign(CENTER, CENTER);
   textSize(width / 10);
@@ -38,13 +45,13 @@ function menuScreen(){
   text('ASSESMENT TEST',width/2,110);
   pop();
   
-  push();
-  image(startTextImg, width/3.2, 189, 50, 25)
-  pop();
 
-  push();
-  image(quitTextImg, width/1.8, 189, 50, 25)
-  pop();
+  startImg.mouseClicked(changeScene);
+  startImg.position(canvas.width / 3.01, canvas.height /1.5);
+
+  // quitImg.mouseClicked(changeScene);
+  quitImg.position(canvas.width / 1.8, canvas.height /1.5);
+
 }
 
 function gameScreen(){
@@ -57,5 +64,6 @@ function gameOverScreen(){
 
 
 function changeScene(){
+  removeElements();
   screen += 1;
 }
