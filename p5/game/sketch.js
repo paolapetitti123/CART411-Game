@@ -13,7 +13,7 @@ let timer = 6;
 function preload(){
   startImg = createImg('./pictures/start.png');
   quitImg = createImg('./pictures/quit.png');
-  vid = createVideo(['./video/newworld_Logo.mp4'],vidSettings);
+  vid = createVideo(['./video/newworld_LogoSmall.mp4'],vidSettings);
 }
 
 function setup() {
