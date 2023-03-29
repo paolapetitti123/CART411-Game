@@ -7,7 +7,7 @@ let startImg;
 let quitImg;
 let vid;
 let vidPlaying = true;
-let timer = 10;
+let timer = 8;
 
 
 function preload(){
@@ -79,7 +79,7 @@ function vidLoad(){
   {
     vid.stop();
     vid.size(0,0);
-    
+
     push();
     textAlign(CENTER, CENTER);
     textSize(width / 10);
