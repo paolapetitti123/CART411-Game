@@ -63,8 +63,7 @@ function gameOverScreen(){
 }
 
 function vidSettings(){
-  
-  vid.size(400,300);
+  vid.size(375,300);
   vid.volume(0);
   vid.noLoop();
 }
@@ -77,9 +76,8 @@ function vidLoad(){
   }
   else if(timer == 0)
   {
-    // vid.hide();
-    // vid.stop();
-    console.log("in here");
+    vid.hide();
+    vid.stop();
   }
   
 }
