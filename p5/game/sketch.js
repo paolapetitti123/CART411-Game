@@ -5,19 +5,21 @@ let startTextImg;
 let quitTextImg;
 let startImg;
 let quitImg;
-let selection = 0;
+let vid;
+let vidPlaying = true;
+let timer = 10;
 
 
 function preload(){
-  startTextImg = loadImage('./pictures/start.png');
-  quitTextImg = loadImage('./pictures/quit.png');
+  startImg = createImg('./pictures/start.png');
+  quitImg = createImg('./pictures/quit.png');
+  vid = createVideo(['./video/newworld_Logo.mp4'],vidSettings);
 }
 
 function setup() {
   // put setup code here
   canvas = createCanvas(430, 300);
-  startImg = createImg('./pictures/start.png');
-  quitImg = createImg('./pictures/quit.png');
+  vid.hide();
 }
 
 function draw() {
@@ -36,7 +38,6 @@ function draw() {
 }
 
 function menuScreen(){
-
   push();
   textAlign(CENTER, CENTER);
   textSize(width / 10);
@@ -45,23 +46,43 @@ function menuScreen(){
   text('ASSESMENT TEST',width/2,110);
   pop();
   
-
   startImg.mouseClicked(changeScene);
   startImg.position(canvas.width / 3.01, canvas.height /1.5);
 
-  // quitImg.mouseClicked(changeScene);
+  // putting in a quit button but it won't do anything
   quitImg.position(canvas.width / 1.8, canvas.height /1.5);
 
 }
 
 function gameScreen(){
-
+  vidLoad();
 }
 
 function gameOverScreen(){
 
 }
 
+function vidSettings(){
+  
+  vid.size(430,300);
+  vid.volume(0);
+  vid.noLoop();
+}
+
+function vidLoad(){
+  image(vid,10,10);
+  if(frameCount % 60 == 0 && timer > 0){
+    vid.play();
+    timer--;
+  }
+  else if(timer == 0)
+  {
+    vid.hide();
+    vid.stop();
+    console.log("in here");
+  }
+  
+}
 
 function changeScene(){
   removeElements();
