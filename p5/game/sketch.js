@@ -56,6 +56,7 @@ function menuScreen(){
 
 function gameScreen(){
   vidLoad();
+ 
 }
 
 function gameOverScreen(){
@@ -76,8 +77,16 @@ function vidLoad(){
   }
   else if(timer == 0)
   {
-    vid.hide();
     vid.stop();
+    vid.size(0,0);
+    
+    push();
+    textAlign(CENTER, CENTER);
+    textSize(width / 10);
+    fill(255,255,255);
+    textFont("VT323");
+    text('TEST',width/2,110);
+    pop();
   }
   
 }
