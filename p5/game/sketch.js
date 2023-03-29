@@ -7,7 +7,7 @@ let startImg;
 let quitImg;
 let vid;
 let vidPlaying = true;
-let timer = 8;
+let timer = 6;
 
 
 function preload(){
