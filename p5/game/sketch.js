@@ -11,7 +11,6 @@ let vidPlaying = true;
 let timer = 6;
 let welcomeMessage;
 let messagePlayCount = 0;
-let tvStaticSound;
 
 
 function preload(){
@@ -20,7 +19,6 @@ function preload(){
   contImg = createImg('./pictures/continue.png');
   vid = createVideo(['./video/newworld_LogoSmall.mp4'],vidSettings);
   welcomeMessage = loadSound('./audio/welcome_message.mp3');
-  tvStaticSound = loadSound('./audio/tv_static.wav');
 }
 
 function setup() {
@@ -49,10 +47,7 @@ function draw() {
 }
 
 function menuScreen(){
-  if(!tvStaticSound.isPlaying()){
-    tvStaticSound.loop();
-    tvStaticSound.setVolume(0.6);
-  }
+
   push();
   textAlign(CENTER, CENTER);
   textSize(width / 10);
