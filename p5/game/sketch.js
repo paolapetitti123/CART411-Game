@@ -39,7 +39,7 @@ function draw() {
     gameScreen();
   }
   else if(screen == 2){
-    captchaStart();
+    questionnaireStart();
   }
   else if(screen == 3){
     gameOverScreen();
@@ -82,8 +82,9 @@ function vidSettings(){
 function vidLoad(){
   startImg.hide();
   quitImg.hide();
-  image(vid,10,10);
+  image(vid,20,10);
   if(frameCount % 60 == 0 && timer > 0){
+    vid.volume(1);
     vid.play();
     timer--;
   }
@@ -122,14 +123,14 @@ function introGame()
 
 }
 
-function captchaStart(){
+function questionnaireStart(){
   contImg.hide();
   push();
   textAlign(CENTER, CENTER);
   textSize(width / 15);
   fill(255,255,255);
   textFont("VT323");
-  text(`TESTING.`,width/2,110);
+  text(`Questionnaire.`,width/2,110);
   pop();
 }
 
