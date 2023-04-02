@@ -26,6 +26,7 @@ let trueImg;
 let falseImg;
 let yesImg;
 let noImg;
+let tryAgainImg;
 let qTwoAImg, qTwoBImg, qTwoCImg;
 
 // Video variables
@@ -42,6 +43,7 @@ function preload(){
   falseImg = createImg('./pictures/false.png');
   yesImg = createImg('./pictures/yes.png');
   noImg = createImg('./pictures/no.png');
+  tryAgainImg = createImg('./pictures/try-again.png');
   qTwoAImg = createImg('./pictures/q2-answer-a.png');
   qTwoBImg = createImg('./pictures/q2-answer-b.png');
   qTwoCImg = createImg('./pictures/q2-answer-c.png');
@@ -54,6 +56,8 @@ function preload(){
   questMessage = loadSound('./audio/question_start.mp3');
   txtSoundEffect = loadSound('./audio/text_transition.wav');
   clickSoundEffect = loadSound('./audio/button_click.wav');
+
+  // shaders
 }
 
 function setup() {
@@ -251,15 +255,15 @@ function questionThree(){
 
   qTwoAImg.position(canvas.width / 15, canvas.height /1.8);
   qTwoAImg.mouseClicked(changeScene);
-  qTwoAImg.style('width', '350px');
+  // qTwoAImg.style('width', '350px');
 
   qTwoBImg.position(canvas.width / 15, canvas.height /1.5);
   qTwoBImg.mouseClicked(correctAnswer);
-  qTwoBImg.style('width', '380px');
+  // qTwoBImg.style('width', '380px');
 
   qTwoCImg.position(canvas.width / 15, canvas.height /1.3);
   qTwoCImg.mouseClicked(changeScene);
-  qTwoCImg.style('width', '390px');
+  // qTwoCImg.style('width', '390px');
 }
 
 function questionFour(){
@@ -305,6 +309,7 @@ function questionFive(){
 }
 
 function questionSix(){
+  console.log("Current Score:" + correctAns);
   push();
   textAlign(CENTER, CENTER);
   textSize(width / 15);
@@ -324,7 +329,7 @@ function flashMessage(){
   yesImg.hide();
   noImg.hide();
 
-  if(correctAns >= 3){
+  if(correctAns > 3){
     if(frameCount % 60 == 0 && glitchTimer > 0){
       push();
       textAlign(CENTER, CENTER);
@@ -342,11 +347,33 @@ function flashMessage(){
       textSize(width / 15);
       fill(255,255,255);
       textFont("VT323");
-      text(`Authenticity Assessment Examination`,width/2,110);
+      text(`Authenticity Assessment\nExamination`,width/2,110);
       pop();
     }
   }
+  else if(correctAns < 3){
+    console.log("Current Score:" + correctAns);
+    push();
+    textAlign(CENTER, CENTER);
+    textSize(width / 15);
+    fill(255,255,255);
+    textFont("VT323");
+    text(`FAIL.`,width/2,110);
+    pop();  
+    tryAgainImg.position(canvas.width / 1.8, canvas.height /1.5);
+    tryAgainImg.mouseClicked(tryAgain);
+    
+  }
 
+}
+
+
+function tryAgain(){
+  
+  tryAgainImg.hide();
+  clickSoundEffect.play();
+  location.reload();
+  console.log(screen);
 }
 
 function changeScene(){
@@ -356,6 +383,10 @@ function changeScene(){
 
 function correctAnswer(){
   correctAns++;
-  clickSoundEffect.play()
+  clickSoundEffect.play();
   screen += 1;
+}
+
+function appearSoundEffect(){
+  clickSoundEffect.play();
 }
