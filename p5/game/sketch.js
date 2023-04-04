@@ -1,20 +1,23 @@
 // Setting Variables 
 let canvas;
-let screen = 0;
+let screen = 9;
 let timer = 6;
 let glitchTimer = 2;
+let loadingTimer = 6;
 
 // Sound variables
 let welcomeMessage;
 let questMessage;
 let txtSoundEffect;
 let clickSoundEffect;
+let assessmentBegin;
 
 // Counter variables 
 let messagePlayCount = 0;
 let questCount = 0;
 let txtPlayCount = 0;
 let correctAns = 0;
+let assessmentCounter = 0;
 
 // Image variables
 let startTextImg;
@@ -28,11 +31,19 @@ let yesImg;
 let noImg;
 let tryAgainImg;
 let qTwoAImg, qTwoBImg, qTwoCImg;
+let trust, dontTrust;
 
 // Video variables
 let vid;
-let vidPlaying = true;
+let vidLoading;
 
+// arrays
+let imgArray = [];
+let totalImgs = 16;
+let gifArray = [];
+let totalGifs = 7;
+let imgObj = {};
+let arrayObjs = [];
 
 function preload(){
   // images
@@ -47,17 +58,40 @@ function preload(){
   qTwoAImg = createImg('./pictures/q2-answer-a.png');
   qTwoBImg = createImg('./pictures/q2-answer-b.png');
   qTwoCImg = createImg('./pictures/q2-answer-c.png');
+  trust = createImg('./pictures/trust.png');
+  dontTrust = createImg('./pictures/dontTrust.png');
 
   // videos
   vid = createVideo(['./video/newworld_LogoSmall.mp4'],vidSettings);
+  vidLoading = createVideo(['./video/loading.mp4'],vidSettings);
 
   // sounds
   welcomeMessage = loadSound('./audio/welcome_message.mp3');
   questMessage = loadSound('./audio/question_start.mp3');
+  assessmentBegin = loadSound('./audio/assessment_start.mp3');
   txtSoundEffect = loadSound('./audio/text_transition.wav');
   clickSoundEffect = loadSound('./audio/button_click.wav');
 
-  // shaders
+  // assessment pics and gifs
+  for (let i = 1; i < totalImgs; i++)
+  {
+    imgArray[i] = loadImage("./assessment-pics/" + i + ".png");
+
+    arrayObjs[i] = imgObj = {
+      image: imgArray[i],
+      trust: true
+    }
+  }
+
+  for (let i = 1; i < totalGifs; i++)
+  {
+    gifArray[i] = loadImage("./assessment-pics/gifs/" + i + ".gif");
+
+    arrayObjs.push(imgObj = {
+      image: gifArray[i],
+      trust: false
+    })
+  }
 }
 
 function setup() {
@@ -65,7 +99,10 @@ function setup() {
   canvas = createCanvas(430, 300);
   
   vid.hide();
+  vidLoading.hide();
   txtSoundEffect.setVolume(1);
+
+  console.log(arrayObjs);
 
 }
 
@@ -100,6 +137,9 @@ function draw() {
   }
   else if(screen == 8){
     flashMessage();
+  }
+  else if(screen == 9){
+    assessmentOne();
   }
   else if(screen == 20){
     gameOverScreen();
@@ -138,6 +178,9 @@ function vidSettings(){
   vid.size(375,300);
   vid.volume(0);
   vid.noLoop();
+
+  vidLoading.size(375,300);
+  vidLoading.noLoop();
 }
 
 function vidLoad(){
@@ -170,9 +213,9 @@ function introGame()
 
 
   if(!welcomeMessage.isPlaying() && messagePlayCount <= 1){
+    
     welcomeMessage.play();
     messagePlayCount++;
-    console.log("Counter:" + messagePlayCount);
   }
   else if(messagePlayCount == 2){
     welcomeMessage.stop();
@@ -187,10 +230,21 @@ function introGame()
 
 function questionnaireStart(){
   contImg.hide();
+  image(vidLoading,20,10);
+    if(frameCount % 60 == 0 && loadingTimer > 0){
+      vidLoading.play();
+      loadingTimer--;
+    }
+    else if(loadingTimer == 0)
+    {
+      vidLoading.stop();
+      vidLoading.size(0,0);
+    }
   if(!questMessage.isPlaying() && questCount <= 1){
     questMessage.play();
     questCount++;
     console.log("Counter:" + questCount);
+    
   }
   else if(questCount == 2){
     questMessage.stop();
@@ -253,17 +307,14 @@ function questionThree(){
   text(`3. Pain is ___`,width/2,110);
   pop();
 
-  qTwoAImg.position(canvas.width / 15, canvas.height /1.8);
+  qTwoAImg.position(canvas.width / 3.5, canvas.height /1.8);
   qTwoAImg.mouseClicked(changeScene);
-  // qTwoAImg.style('width', '350px');
 
-  qTwoBImg.position(canvas.width / 15, canvas.height /1.5);
+  qTwoBImg.position(canvas.width / 3.5, canvas.height /1.5);
   qTwoBImg.mouseClicked(correctAnswer);
-  // qTwoBImg.style('width', '380px');
 
-  qTwoCImg.position(canvas.width / 15, canvas.height /1.3);
+  qTwoCImg.position(canvas.width / 3.5, canvas.height /1.29);
   qTwoCImg.mouseClicked(changeScene);
-  // qTwoCImg.style('width', '390px');
 }
 
 function questionFour(){
@@ -331,6 +382,14 @@ function flashMessage(){
 
   if(correctAns > 3){
     if(frameCount % 60 == 0 && glitchTimer > 0){
+      startImg.hide();
+      qTwoAImg.hide();
+      qTwoBImg.hide();
+      qTwoCImg.hide();
+      trueImg.hide();
+      falseImg.hide();
+      quitImg.hide();
+      tryAgainImg.hide();
       push();
       textAlign(CENTER, CENTER);
       textSize(width / 15);
@@ -342,17 +401,35 @@ function flashMessage(){
     }
     else if(glitchTimer == 0)
     {
+      startImg.hide();
+      qTwoAImg.hide();
+      qTwoBImg.hide();
+      qTwoCImg.hide();
+      trueImg.hide();
+      falseImg.hide();
+      quitImg.hide();
+      tryAgainImg.hide();
       push();
       textAlign(CENTER, CENTER);
       textSize(width / 15);
       fill(255,255,255);
       textFont("VT323");
-      text(`Authenticity Assessment\nExamination`,width/2,110);
+      text(`Authenticity Assessment\nTrial`,width/2,height/2.5);
       pop();
+
+      if(!assessmentBegin.isPlaying() && assessmentCounter <= 1){
+        assessmentBegin.play();
+        assessmentCounter++;
+      }
+      else if(assessmentCounter == 2){
+        assessmentBegin.stop();
+        contImg.position(width/2.6, canvas.height /1.5);
+        contImg.mouseClicked(changeScene);
+      }
+
     }
   }
   else if(correctAns < 3){
-    console.log("Current Score:" + correctAns);
     push();
     textAlign(CENTER, CENTER);
     textSize(width / 15);
@@ -364,7 +441,21 @@ function flashMessage(){
     tryAgainImg.mouseClicked(tryAgain);
     
   }
+}
 
+function assessmentOne(){
+  // load the trust/don't trust buttons
+  trust.position(width / 1.45, height / 3);
+  dontTrust.position(width / 1.45, height / 1.7);
+
+
+  // access a random image/gif from arraysObj
+
+  // write if-else statement for whether trust/don't trust is clicked
+  
+  // generate new image after button click
+
+  // have this go until all 6 gifs have been clicked as don't trust 
 }
 
 
