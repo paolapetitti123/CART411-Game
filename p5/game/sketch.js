@@ -1,6 +1,6 @@
 // Setting Variables 
 let canvas;
-let screen = 9;
+let screen = 0;
 let timer = 6;
 let glitchTimer = 2;
 let loadingTimer = 6;
