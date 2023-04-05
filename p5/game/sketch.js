@@ -103,6 +103,18 @@ function setup() {
   txtSoundEffect.setVolume(1);
 
   console.log(arrayObjs);
+  contImg.hide();
+  trueImg.hide();
+  falseImg.hide();
+  yesImg.hide();
+  noImg.hide();
+  tryAgainImg.hide();
+  qTwoAImg.hide();
+  qTwoBImg.hide();
+  qTwoCImg.hide();
+  trust.hide();
+  dontTrust.hide();
+
 
 }
 
@@ -166,7 +178,8 @@ function menuScreen(){
 
 function gameScreen(){
   vidLoad();
-  
+  startImg.hide();
+  quitImg.hide();
 }
 
 function gameOverScreen(){
@@ -219,6 +232,7 @@ function introGame()
   }
   else if(messagePlayCount == 2){
     welcomeMessage.stop();
+    contImg.show();
     contImg.position(canvas.width / 3.01, canvas.height /1.5);
     contImg.mouseClicked(changeScene);
   }
@@ -267,10 +281,11 @@ function questionnaireStart(){
     textFont("VT323");
     text(`1. Are you alone?`,width/2,110);
     pop();
-  
+    yesImg.show();
     yesImg.position(canvas.width / 3.01, canvas.height /1.5);
     yesImg.mouseClicked(correctAnswer);
   
+    noImg.show();
     noImg.position(canvas.width / 1.8, canvas.height /1.5);
     noImg.mouseClicked(changeScene);
   }
@@ -307,12 +322,15 @@ function questionThree(){
   text(`3. Pain is ___`,width/2,110);
   pop();
 
+  qTwoAImg.show();
   qTwoAImg.position(canvas.width / 3.5, canvas.height /1.8);
   qTwoAImg.mouseClicked(changeScene);
-
+  
+  qTwoBImg.show();
   qTwoBImg.position(canvas.width / 3.5, canvas.height /1.5);
   qTwoBImg.mouseClicked(correctAnswer);
 
+  qTwoCImg.show();
   qTwoCImg.position(canvas.width / 3.5, canvas.height /1.29);
   qTwoCImg.mouseClicked(changeScene);
 }
@@ -332,9 +350,11 @@ function questionFour(){
   text(`4. Being perfect,\nour world is safe`,width/2,110);
   pop();
 
+  trueImg.show();
   trueImg.position(canvas.width / 3.01, canvas.height /1.5);
   trueImg.mouseClicked(correctAnswer);
 
+  falseImg.show();
   falseImg.position(canvas.width / 1.8, canvas.height /1.5);
   falseImg.mouseClicked(changeScene);
 
@@ -423,6 +443,7 @@ function flashMessage(){
       }
       else if(assessmentCounter == 2){
         assessmentBegin.stop();
+        contImg.show();
         contImg.position(width/2.6, canvas.height /1.5);
         contImg.mouseClicked(changeScene);
       }
@@ -437,6 +458,7 @@ function flashMessage(){
     textFont("VT323");
     text(`FAIL.`,width/2,110);
     pop();  
+    tryAgainImg.show();
     tryAgainImg.position(canvas.width / 1.8, canvas.height /1.5);
     tryAgainImg.mouseClicked(tryAgain);
     
@@ -444,6 +466,19 @@ function flashMessage(){
 }
 
 function assessmentOne(){
+  // making sure that all the old buttons are hidden
+  startImg.hide();
+  quitImg.hide();
+  contImg.hide();
+  trueImg.hide();
+  falseImg.hide();
+  yesImg.hide();
+  noImg.hide();
+  tryAgainImg.hide();
+  qTwoAImg.hide();
+  qTwoBImg.hide();
+  qTwoCImg.hide();
+
   // load the trust/don't trust buttons
   trust.position(width / 1.45, height / 3);
   dontTrust.position(width / 1.45, height / 1.7);
