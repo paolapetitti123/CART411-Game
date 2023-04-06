@@ -94,6 +94,8 @@ function preload(){
   }
 }
 
+window.parent.postMessage(['questCount', questCount], '*');
+
 function setup() {
   // put setup code here
   canvas = createCanvas(430, 300);
