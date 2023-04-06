@@ -46,6 +46,9 @@ let totalGifs = 7;
 let imgObj = {};
 let arrayObjs = [];
 
+// Game State Bools
+let gamePlaying = true;  // IF this becomes FALSE, the game is over 
+
 function preload(){
   // images
   startImg = createImg('./pictures/start.png');
@@ -95,7 +98,7 @@ function preload(){
   }
 }
 
-window.parent.postMessage(['finalCorrectAnswer', finalCorrectAnswer], '*');
+window.parent.postMessage(['gamePlaying', gamePlaying], '*');
 
 function setup() {
   // put setup code here
