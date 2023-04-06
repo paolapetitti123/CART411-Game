@@ -17,6 +17,7 @@ let messagePlayCount = 0;
 let questCount = 0;
 let txtPlayCount = 0;
 let correctAns = 0;
+let finalCorrectAnswer = 0;
 let assessmentCounter = 0;
 
 // Image variables
@@ -94,7 +95,7 @@ function preload(){
   }
 }
 
-window.parent.postMessage(['questCount', questCount], '*');
+window.parent.postMessage(['finalCorrectAnswer', finalCorrectAnswer], '*');
 
 function setup() {
   // put setup code here
