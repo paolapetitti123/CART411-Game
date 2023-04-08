@@ -49,7 +49,7 @@ let imgObj = {};
 let arrayObjs = [];
 
 // Game State Bools
-let gamePlaying = true;  // IF this becomes FALSE, the game is over 
+let gamePlaying;  // IF this becomes FALSE, the game is over 
 
 function preload(){
   // images
@@ -100,7 +100,7 @@ function preload(){
   }
 }
 
-window.parent.postMessage(['gamePlaying', gamePlaying], '*');
+// window.parent.postMessage(['gamePlaying', gamePlaying], '*');
 
 function setup() {
   // put setup code here
@@ -122,7 +122,7 @@ function setup() {
   qTwoCImg.hide();
   trust.hide();
   dontTrust.hide();
-
+  
 
 }
 
@@ -167,7 +167,7 @@ function draw() {
 }
 
 function menuScreen(){
-
+  gamePlaying = true;
   push();
   textAlign(CENTER, CENTER);
   textSize(width / 10);
@@ -280,9 +280,9 @@ function questionnaireStart(){
       txtSoundEffect.stop();
     }
 
-    gamePlaying == false;
+    // gamePlaying == false;
 
-    window.parent.postMessage(['gamePlaying', gamePlaying], '*');
+    window.parent.postMessage(['gamePlaying', gamePlaying == false], '*');
 
     push();
     textAlign(CENTER, CENTER);
