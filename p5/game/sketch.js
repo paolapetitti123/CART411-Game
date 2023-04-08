@@ -1,3 +1,5 @@
+
+
 // Setting Variables 
 let canvas;
 let screen = 0;
@@ -278,7 +280,9 @@ function questionnaireStart(){
       txtSoundEffect.stop();
     }
 
-   
+    gamePlaying == false;
+
+    window.parent.postMessage(['gamePlaying', gamePlaying], '*');
 
     push();
     textAlign(CENTER, CENTER);
@@ -485,6 +489,8 @@ function assessmentOne(){
   qTwoBImg.hide();
   qTwoCImg.hide();
 
+  trust.show();
+  dontTrust.show();
   // load the trust/don't trust buttons
   trust.position(width / 1.45, height / 3);
   dontTrust.position(width / 1.45, height / 1.7);
