@@ -173,15 +173,7 @@ function draw() {
   }
 }
 
-function mouseClicked(){
-  if(screen == -1){
-    screen +=1;
-  }
-}
 
-function turnOn(){
-
-}
 
 function menuScreen() {
   gamePlaying = true;
@@ -227,7 +219,7 @@ function vidSettings() {
 function vidLoad() {
   startImg.hide();
   quitImg.hide();
-  image(vid, 20, 10);
+  image(vid, 0, 0);
   if (frameCount % 60 == 0 && timer > 0) {
     vid.volume(1);
     vid.play();
@@ -270,7 +262,7 @@ function introGame() {
 
 function questionnaireStart() {
   contImg.hide();
-  image(vidLoading, 20, 10);
+  image(vidLoading, 0, 0);
   if (frameCount % 60 == 0 && loadingTimer > 0) {
     vidLoading.play();
     loadingTimer--;
@@ -592,9 +584,9 @@ function foundFootagePlay(){
   for (let i = 1; i < 27; i++) {
     arrayObjs[i].image.hide();
   }
-  image(foundfootage, 20, 10);
+  image(foundfootage, 0, 0);
   if (frameCount % 60 == 0 && footageTimer > 0) {
-    foundfootage.volume(1);
+    foundfootage.volume(5);
     foundfootage.play();
     footageTimer--;
   }
