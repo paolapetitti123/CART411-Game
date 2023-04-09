@@ -212,14 +212,14 @@ function gameScreen() {
 
 
 function vidSettings() {
-  vid.size(375, 300);
+  vid.size(430, 300);
   vid.volume(0);
   vid.noLoop();
 
-  vidLoading.size(375, 300);
+  vidLoading.size(430, 300);
   vidLoading.noLoop();
 
-  foundfootage.size(375, 300);
+  foundfootage.size(430, 300);
   foundfootage.noLoop();
 
 }
