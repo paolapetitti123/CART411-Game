@@ -586,7 +586,7 @@ function foundFootagePlay(){
   }
   image(foundfootage, 0, 0);
   if (frameCount % 60 == 0 && footageTimer > 0) {
-    foundfootage.volume(5);
+    foundfootage.volume(1);
     foundfootage.play();
     footageTimer--;
   }
