@@ -111,7 +111,6 @@ function setup() {
 
   txtSoundEffect.setVolume(1);
 
-  console.log(arrayObjs);
   contImg.hide();
   trueImg.hide();
   falseImg.hide();
@@ -274,7 +273,6 @@ function questionnaireStart() {
   if (!questMessage.isPlaying() && questCount <= 1) {
     questMessage.play();
     questCount++;
-    console.log("Counter:" + questCount);
 
   }
   else if (questCount == 2) {
@@ -399,7 +397,6 @@ function questionFive() {
 }
 
 function questionSix() {
-  console.log("Current Score:" + correctAns);
   push();
   textAlign(CENTER, CENTER);
   textSize(width / 15);
@@ -517,7 +514,6 @@ function assessmentOne() {
       trust.mouseClicked(corrAns);
       dontTrust.mouseClicked(badAns);
       if (frameCount % 60 == 0 && textTimer > 0) {
-        console.log("in here");
         textAlign(CENTER, CENTER);
         textSize(width / 5);
         fill(196, 26, 18);
@@ -543,11 +539,9 @@ function assessmentOne() {
 
 function corrAns() {
   if (assessGifCounter >= 26 && assessPoints >= 6) {
-    console.log(assessGifCounter);
     changeScene();
   }
   else if (assessGifCounter >= 26 && assessPoints <= 5) {
-    console.log(assessGifCounter);
     changeSceneDouble();
   }
   else {
@@ -563,12 +557,9 @@ function corrAns() {
 
 function badAns() {
   if (assessGifCounter >= 26 && assessPoints >= 6) {
-    console.log('good ending');
     changeScene();
   }
   else if (assessGifCounter >= 26 && assessPoints < 6) {
-    console.log('bad ending');
-    console.log(assessGifCounter);
     changeSceneDouble();
   }
   else {
@@ -648,7 +639,6 @@ function tryAgain() {
   tryAgainImg.hide();
   clickSoundEffect.play();
   location.reload();
-  console.log(screen);
 }
 
 function changeScene() {
